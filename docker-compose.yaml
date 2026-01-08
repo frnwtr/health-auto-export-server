@@ -7,8 +7,6 @@ services:
       - mongodb-data:/data/db
     networks:
       - hae_network
-    ports:
-      - "${MONGO_PORT}:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
@@ -17,8 +15,6 @@ services:
   hae-grafana:
     container_name: hae-grafana
     image: grafana/grafana-oss:latest
-    ports:
-      - 3000:3000
     volumes:
       - ./grafana-data:/var/lib/grafana
     # user: "0:0" # you may need to uncomment this line if using Ubuntu or if you expereince permission errors
@@ -33,8 +29,6 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    ports:
-      - "3001:3001"
     environment:
       - NODE_ENV=${NODE_ENV}
       - MONGO_HOST=${MONGO_HOST}
@@ -55,6 +49,5 @@ networks:
     driver: bridge
 
 volumes:
-  postgres-data:
   grafana-data:
   mongodb-data:
